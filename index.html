@@ -95,7 +95,7 @@
   .swatch{background:var(--white);border:1px solid var(--line);border-radius:18px;
     padding:16px 8px 14px;text-align:center;transition:.2s}
   .swatch:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(138,98,56,.12)}
-  .swatch svg{width:100%;height:96px;display:block;margin-bottom:8px}
+  .swatch svg{width:100%;height:122px;display:block;margin-bottom:8px}
   .swatch .nm{font-weight:700;font-size:13.5px}
   .swatch .nm small{display:block;color:var(--muted);font-weight:500;font-size:11.5px;margin-top:2px}
 
@@ -104,7 +104,7 @@
   .style{background:var(--white);border:1px solid var(--line);border-radius:20px;
     padding:22px 14px;text-align:center;transition:.2s}
   .style:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(138,98,56,.12)}
-  .style svg{width:100%;height:120px;margin-bottom:10px}
+  .style svg{width:100%;height:132px;margin-bottom:10px}
   .style .nm{font-weight:700;font-size:15px}
 
   /* Price */
@@ -150,16 +150,17 @@
         <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#dcb98f"/><stop offset="1" stop-color="#8a6238"/>
+              <stop offset="0" stop-color="#e7c89d"/><stop offset="1" stop-color="#866039"/>
             </linearGradient>
           </defs>
           <rect x="2" y="2" width="40" height="40" rx="13" fill="url(#lg)"/>
-          <g fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" opacity=".96">
-            <path d="M12 10 C7 19,15 25,10 35"/>
-            <path d="M17 9 C13 19,20 25,15 35"/>
-            <path d="M22 10 C18 19,25 25,20 35"/>
+          <g fill="none" stroke="#fff" stroke-linecap="round">
+            <path d="M16 9 C 24 16, 13 24, 20 34" stroke-width="2.6"/>
+            <path d="M22 8 C 31 16, 19 25, 26 34" stroke-width="2.6"/>
+            <path d="M28 9 C 34 17, 25 25, 30 33" stroke-width="2.2" opacity=".9"/>
+            <path d="M13 11 C 19 17, 11 25, 16 33" stroke-width="2" opacity=".8"/>
+            <path d="M19 8.5 C 27 16, 16 25, 23 34" stroke-width="1.5" opacity=".6"/>
           </g>
-          <text x="27" y="31" font-family="'Cormorant Garamond',serif" font-size="21" font-weight="700" fill="#fff">₪</text>
         </svg>
       </span>
       <span class="logo-txt"><b>HAIR<i>₪</i></b><small data-i="brand"></small></span>
@@ -298,16 +299,56 @@
 const PHONE = "972545077107";   // WhatsApp номер
 /* =================================================== */
 
-/* lock SVG generator (flowing hair lock in a given color) */
-function lock(c){
-  return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
-    <g fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round">
-      <path d="M60 10 C 40 45,80 80,45 122"/>
-      <path d="M60 10 C 75 48,45 85,72 122"/>
-      <path d="M60 10 C 56 45,60 90,58 122"/>
-      <path d="M60 10 C 35 55,70 100,30 122"/>
-      <path d="M60 10 C 85 55,50 100,90 122"/>
-    </g></svg>`;
+/* ---- realistic hair generators ---- */
+function _rgb(h){h=h.replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function _hex(a){return '#'+a.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');}
+function mix(a,b,t){const A=_rgb(a),B=_rgb(b);return _hex([A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t,A[2]+(B[2]-A[2])*t]);}
+function R(){return Math.random();}
+/* one wavy strand: amplitude tapers to 0 at root and tip (natural settle) */
+function strand(x0,y0,x1,y1,amp,freq,ph){
+  const steps=16; let d='';
+  for(let s=0;s<=steps;s++){
+    const t=s/steps, y=y0+(y1-y0)*t;
+    const x=x0+(x1-x0)*t + Math.sin(t*Math.PI*freq+ph)*amp*Math.sin(t*Math.PI);
+    d+=(s?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)+' ';
+  }
+  return d;
+}
+/* a tied lock of hair in a given base colour — for the colour swatches */
+function hairLock(base){
+  const root=mix(base,'#15100a',0.42), tip=mix(base,'#ffffff',0.20), hi=mix(base,'#ffffff',0.46);
+  let g=''; const N=26, topX=60, topY=22;
+  for(let i=0;i<N;i++){
+    const t=i/(N-1), spread=t-0.5;
+    const x1=60+spread*66+(R()*8-4);
+    const y1=116+R()*26;
+    const col = R()<0.16 ? hi : mix(root,tip,R());
+    g+=`<path d="${strand(topX,topY,x1,y1,4+R()*5,1+R()*1.6,R()*6.3)}" stroke="${col}" stroke-width="${(1.5+R()*1.2).toFixed(1)}" opacity="${(0.8+R()*0.2).toFixed(2)}"/>`;
+  }
+  const band=mix(base,'#000000',0.5);
+  return `<svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">`
+    +`<g fill="none" stroke-linecap="round" stroke-linejoin="round">${g}</g>`
+    +`<ellipse cx="60" cy="18" rx="13" ry="6" fill="${root}"/>`
+    +`<rect x="50" y="14" width="20" height="8" rx="4" fill="${band}"/>`
+    +`<rect x="50" y="15.5" width="20" height="1.6" rx="0.8" fill="${mix(base,'#fff',0.35)}" opacity="0.5"/>`
+    +`</svg>`;
+}
+/* a curtain of hair with a given texture — for the style cards (brown) */
+function hairStyle(kind){
+  const base='#5a3b22';
+  const cfg={straight:[1.4,0.6,126],wavy:[7,2.3,126],curly:[12,4.6,124],long:[4,1.4,140]}[kind];
+  const amp=cfg[0], freq=cfg[1], yEnd=cfg[2];
+  const root=mix(base,'#15100a',0.35), tip=mix(base,'#ffffff',0.16), hi=mix(base,'#ffffff',0.42);
+  let g=''; const N=17;
+  for(let i=0;i<N;i++){
+    const t=i/(N-1), x0=36+t*48;
+    const col = R()<0.16 ? hi : mix(root,tip,R());
+    g+=`<path d="${strand(x0,12,x0+(R()*8-4),yEnd-R()*9,amp,freq,t*3+R())}" stroke="${col}" stroke-width="${(1.6+R()*1).toFixed(1)}" opacity="${(0.82+R()*0.18).toFixed(2)}"/>`;
+  }
+  return `<svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">`
+    +`<g fill="none" stroke-linecap="round" stroke-linejoin="round">${g}</g>`
+    +`<rect x="34" y="9" width="52" height="6" rx="3" fill="${root}"/>`
+    +`</svg>`;
 }
 
 const COLORS = [
@@ -320,10 +361,10 @@ const COLORS = [
 ];
 
 const STYLES = [
-  {ru:"Прямые", uz:"To‘g‘ri", zh:"直发", hi:"सीधे", ar:"أملس", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="8" stroke-linecap="round"><path d="M40 12 V128"/><path d="M55 12 V130"/><path d="M70 12 V128"/><path d="M85 12 V130"/></g></svg>`},
-  {ru:"Волнистые", uz:"To‘lqinli", zh:"波浪", hi:"लहरदार", ar:"مموج", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="8" stroke-linecap="round"><path d="M40 12 C30 40,55 55,40 80 C28 105,52 110,42 130"/><path d="M62 12 C52 40,77 55,62 80 C50 105,74 110,64 130"/><path d="M84 12 C74 40,99 55,84 80 C72 105,96 110,86 130"/></g></svg>`},
-  {ru:"Кудрявые", uz:"Jingalak", zh:"卷发", hi:"घुंघराले", ar:"مجعد", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="7" stroke-linecap="round"><path d="M45 16 c-18 6,-18 26,0 24 c14 -2,2 22,-12 18 M62 14 c-18 6,-18 26,0 24 c14 -2,2 22,-12 18 M80 18 c-18 6,-18 26,0 24 c14 -2,2 22,-12 18"/><circle cx="50" cy="100" r="10"/><circle cx="70" cy="112" r="11"/><circle cx="55" cy="124" r="8"/></g></svg>`},
-  {ru:"Длинные", uz:"Uzun", zh:"长发", hi:"लंबे", ar:"طويل", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="8" stroke-linecap="round"><path d="M48 10 C38 50,60 70,46 135"/><path d="M62 10 C58 50,62 80,60 135"/><path d="M76 10 C86 50,64 70,78 135"/></g></svg>`},
+  {kind:"straight", ru:"Прямые",    uz:"To‘g‘ri",  zh:"直发", hi:"सीधे",      ar:"أملس"},
+  {kind:"wavy",     ru:"Волнистые", uz:"To‘lqinli",zh:"波浪", hi:"लहरदार",    ar:"مموج"},
+  {kind:"curly",    ru:"Кудрявые",  uz:"Jingalak", zh:"卷发", hi:"घुंघराले",  ar:"مجعد"},
+  {kind:"long",     ru:"Длинные",   uz:"Uzun",     zh:"长发", hi:"लंबे",      ar:"طويل"},
 ];
 
 const T = {
@@ -497,12 +538,15 @@ const WA_MSG = {
   ar:"مرحبًا! أريد بيع شعري.\n📷 الصورة: (سأرفقها)\n🎨 لون الشعر: \n📍 المدينة (مكان الاستلام): \n⚖️ الوزن/الطول: "
 };
 
+let _colorSvgs=null, _styleSvgs=null;
 function buildGalleries(l){
-  document.getElementById('colors').innerHTML = COLORS.map(c=>
-    `<div class="swatch">${lock(c.c)}<div class="nm">${c[l]}</div></div>`
+  if(!_colorSvgs) _colorSvgs = COLORS.map(c=>hairLock(c.c));
+  if(!_styleSvgs) _styleSvgs = STYLES.map(s=>hairStyle(s.kind));
+  document.getElementById('colors').innerHTML = COLORS.map((c,i)=>
+    `<div class="swatch">${_colorSvgs[i]}<div class="nm">${c[l]}</div></div>`
   ).join('');
-  document.getElementById('styles').innerHTML = STYLES.map(s=>
-    `<div class="style">${s.svg}<div class="nm">${s[l]}</div></div>`
+  document.getElementById('styles').innerHTML = STYLES.map((s,i)=>
+    `<div class="style">${_styleSvgs[i]}<div class="nm">${s[l]}</div></div>`
   ).join('');
 }
 
