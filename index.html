@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Скупка волос — продай свои волосы дорого</title>
+<meta name="description" content="Покупаем натуральные волосы. Оплата по граммам, наличными при получении. Отправь фото в WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbf7f3;--cream:#f3e9e0;--ink:#2a211c;--muted:#7a6a5f;
+    --gold:#b08458;--gold-deep:#8a6238;--wa:#25d366;--wa-deep:#1da851;
+    --line:#e7dacd;--white:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.12;letter-spacing:-.01em}
+
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(251,247,243,.85);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand .mark{width:42px;height:42px;flex:none}
+  .brand .mark svg{width:100%;height:100%;display:block}
+  .logo-txt{display:flex;flex-direction:column;line-height:1.04}
+  .logo-txt b{font-weight:800;font-size:18px;letter-spacing:.05em;color:var(--ink)}
+  .logo-txt b i{font-style:normal;color:var(--gold-deep);margin-inline-start:2px}
+  .logo-txt small{font-size:9.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);margin-top:1px}
+  .lang{display:flex;gap:3px;background:var(--cream);border-radius:999px;padding:4px;flex-wrap:wrap;justify-content:flex-end}
+  .lang button{border:none;background:transparent;cursor:pointer;font-family:inherit;
+    font-weight:700;font-size:13px;color:var(--muted);padding:7px 12px;border-radius:999px;
+    transition:.2s;letter-spacing:.02em}
+  .lang button.active{background:var(--white);color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+
+  .hero{position:relative;padding:64px 0 50px;text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(620px 360px at 50% -8%,rgba(176,132,88,.16),transparent 70%),
+      radial-gradient(500px 300px at 88% 20%,rgba(176,132,88,.10),transparent 70%)}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--gold-deep);background:var(--cream);
+    padding:8px 16px;border-radius:999px;margin-bottom:20px}
+  .hero h1{font-size:clamp(36px,7vw,64px);margin-bottom:16px}
+  .hero h1 .hl{color:var(--gold-deep);font-style:italic}
+  .hero p.sub{max-width:560px;margin:0 auto 30px;font-size:clamp(16px,2.4vw,19px);color:var(--muted)}
+  .price-badge{display:inline-flex;align-items:baseline;gap:10px;background:var(--white);
+    border:1px solid var(--line);border-radius:18px;padding:16px 26px;margin-bottom:30px;
+    box-shadow:0 12px 40px rgba(138,98,56,.10)}
+  .price-badge .num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold-deep);line-height:1}
+  .price-badge .lbl{font-size:13px;color:var(--muted);font-weight:600;text-align:start}
+
+  .btn-wa{display:inline-flex;align-items:center;gap:12px;background:var(--wa);color:#fff;
+    text-decoration:none;font-weight:800;font-size:17px;padding:17px 32px;border-radius:999px;
+    box-shadow:0 14px 34px rgba(37,211,102,.36);transition:transform .15s,box-shadow .15s}
+  .btn-wa:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(37,211,102,.45)}
+  .btn-wa svg{width:24px;height:24px;flex:none}
+  .hero .note{margin-top:14px;font-size:13.5px;color:var(--muted)}
+
+  section.block{padding:54px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 38px}
+  .sec-head h2{font-size:clamp(30px,5vw,46px);margin-bottom:12px}
+  .sec-head p{color:var(--muted);font-size:16.5px}
+
+  /* INSTRUCTIONS — what to send */
+  .send{background:var(--cream)}
+  .send-card{max-width:680px;margin:0 auto;background:var(--white);border:1px solid var(--line);
+    border-radius:24px;padding:34px 30px;box-shadow:0 18px 50px rgba(138,98,56,.10)}
+  .send-list{display:flex;flex-direction:column;gap:6px;margin-bottom:26px}
+  .send-item{display:flex;align-items:center;gap:18px;padding:16px 6px;border-bottom:1px dashed var(--line)}
+  .send-item:last-child{border-bottom:none}
+  .send-item .ic{width:54px;height:54px;flex:none;border-radius:16px;background:var(--cream);
+    display:grid;place-items:center;font-size:26px}
+  .send-item .tx b{display:block;font-size:18px;font-family:'Cormorant Garamond',serif;font-weight:700}
+  .send-item .tx span{font-size:14.5px;color:var(--muted)}
+  .send-card .cashline{display:flex;align-items:center;gap:10px;justify-content:center;
+    background:#eef9f0;border:1px solid #cdeed4;color:#1c7a39;border-radius:14px;
+    padding:14px;font-weight:700;font-size:15px;margin-bottom:24px}
+  .send-card .btn-wa{display:flex;justify-content:center;width:100%}
+
+  /* HAIR COLORS gallery */
+  .colors-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .swatch{background:var(--white);border:1px solid var(--line);border-radius:18px;
+    padding:16px 8px 14px;text-align:center;transition:.2s}
+  .swatch:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(138,98,56,.12)}
+  .swatch svg{width:100%;height:96px;display:block;margin-bottom:8px}
+  .swatch .nm{font-weight:700;font-size:13.5px}
+  .swatch .nm small{display:block;color:var(--muted);font-weight:500;font-size:11.5px;margin-top:2px}
+
+  /* STYLES gallery */
+  .styles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .style{background:var(--white);border:1px solid var(--line);border-radius:20px;
+    padding:22px 14px;text-align:center;transition:.2s}
+  .style:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(138,98,56,.12)}
+  .style svg{width:100%;height:120px;margin-bottom:10px}
+  .style .nm{font-weight:700;font-size:15px}
+
+  /* Price */
+  .ptable{max-width:560px;margin:0 auto;background:var(--white);border:1px solid var(--line);
+    border-radius:22px;overflow:hidden;box-shadow:0 14px 44px rgba(138,98,56,.09)}
+  .ptable .row{display:flex;justify-content:space-between;align-items:center;padding:20px 26px;border-bottom:1px solid var(--line)}
+  .ptable .row:last-child{border-bottom:none}
+  .ptable .row span:first-child{font-weight:600}
+  .ptable .row .v{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold-deep)}
+  .ptable .foot{background:var(--cream);padding:16px 26px;font-size:13.5px;color:var(--muted);text-align:center}
+
+  .final{text-align:center;padding:64px 0 80px}
+  .final h2{font-size:clamp(30px,5.4vw,50px);margin-bottom:14px}
+  .final p{color:var(--muted);font-size:17px;max-width:520px;margin:0 auto 28px}
+
+  .float-wa{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;
+    background:var(--wa);color:#fff;text-decoration:none;border-radius:999px;padding:15px;
+    font-weight:800;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:.2s}
+  .float-wa svg{width:28px;height:28px;flex:none}
+  .float-wa .ft{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .3s,margin .3s;font-size:15px}
+  .float-wa:hover .ft{max-width:200px;margin-left:10px;margin-right:4px}
+
+  footer{text-align:center;padding:30px 0 110px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+
+  @media(max-width:860px){
+    .colors-grid{grid-template-columns:repeat(3,1fr)}
+    .styles-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:540px){
+    .colors-grid{grid-template-columns:repeat(2,1fr)}
+    .hero{padding:46px 0 40px}
+    .send-card{padding:26px 18px}
+    .send-item .ic{width:46px;height:46px;font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="mark">
+        <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#dcb98f"/><stop offset="1" stop-color="#8a6238"/>
+            </linearGradient>
+          </defs>
+          <rect x="2" y="2" width="40" height="40" rx="13" fill="url(#lg)"/>
+          <g fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" opacity=".96">
+            <path d="M12 10 C7 19,15 25,10 35"/>
+            <path d="M17 9 C13 19,20 25,15 35"/>
+            <path d="M22 10 C18 19,25 25,20 35"/>
+          </g>
+          <text x="27" y="31" font-family="'Cormorant Garamond',serif" font-size="21" font-weight="700" fill="#fff">₪</text>
+        </svg>
+      </span>
+      <span class="logo-txt"><b>HAIR<i>₪</i></b><small data-i="brand"></small></span>
+    </div>
+    <div class="lang">
+      <button data-lang="ru" class="active" onclick="setLang('ru')">RU</button>
+      <button data-lang="uz" onclick="setLang('uz')">UZ</button>
+      <button data-lang="zh" onclick="setLang('zh')">中</button>
+      <button data-lang="hi" onclick="setLang('hi')">HI</button>
+      <button data-lang="ar" onclick="setLang('ar')">ع</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow" data-i="eyebrow"></span>
+    <h1 data-i="h1"></h1>
+    <p class="sub" data-i="sub"></p>
+    <div class="price-badge">
+      <span class="num">300–400 ₪</span>
+      <span class="lbl" data-i="price_lbl"></span>
+    </div>
+    <div>
+      <a class="btn-wa" data-wa href="#">
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A12.4 12.4 0 0 1 3.5 16C3.5 9.1 9.1 3.5 16 3.5S28.5 9.1 28.5 16 22.9 28.5 16 28.5zm7-9.4c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7s-.9-2.1-1.2-2.9c-.3-.8-.6-.7-.9-.7h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.8c.2.2 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5z"/></svg>
+        <span data-i="cta"></span>
+      </a>
+    </div>
+    <p class="note" data-i="note"></p>
+  </div>
+</header>
+
+<!-- WHAT TO SEND -->
+<section class="block send">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i="send_h"></h2>
+      <p data-i="send_p"></p>
+    </div>
+    <div class="send-card">
+      <div class="send-list">
+        <div class="send-item"><div class="ic">📷</div><div class="tx"><b data-i="si1b"></b><span data-i="si1s"></span></div></div>
+        <div class="send-item"><div class="ic">🎨</div><div class="tx"><b data-i="si2b"></b><span data-i="si2s"></span></div></div>
+        <div class="send-item"><div class="ic">📍</div><div class="tx"><b data-i="si3b"></b><span data-i="si3s"></span></div></div>
+        <div class="send-item"><div class="ic">⚖️</div><div class="tx"><b data-i="si4b"></b><span data-i="si4s"></span></div></div>
+      </div>
+      <div class="cashline">💵 <span data-i="cash"></span></div>
+      <a class="btn-wa" data-wa href="#">
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A12.4 12.4 0 0 1 3.5 16C3.5 9.1 9.1 3.5 16 3.5S28.5 9.1 28.5 16 22.9 28.5 16 28.5zm7-9.4c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7s-.9-2.1-1.2-2.9c-.3-.8-.6-.7-.9-.7h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.8c.2.2 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5z"/></svg>
+        <span data-i="cta"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HAIR COLORS -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i="col_h"></h2>
+      <p data-i="col_p"></p>
+    </div>
+    <div class="colors-grid" id="colors"></div>
+  </div>
+</section>
+
+<!-- HAIR STYLES -->
+<section class="block send">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i="sty_h"></h2>
+      <p data-i="sty_p"></p>
+    </div>
+    <div class="styles-grid" id="styles"></div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i="pr_h"></h2>
+      <p data-i="pr_p"></p>
+    </div>
+    <div class="ptable">
+      <div class="row"><span data-i="pr_r1"></span><span class="v">300–340 ₪</span></div>
+      <div class="row"><span data-i="pr_r2"></span><span class="v">340–380 ₪</span></div>
+      <div class="row"><span data-i="pr_r3"></span><span class="v">380–400 ₪</span></div>
+      <div class="foot" data-i="pr_foot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2 data-i="f_h"></h2>
+    <p data-i="f_p"></p>
+    <a class="btn-wa" data-wa href="#">
+      <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A12.4 12.4 0 0 1 3.5 16C3.5 9.1 9.1 3.5 16 3.5S28.5 9.1 28.5 16 22.9 28.5 16 28.5zm7-9.4c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7s-.9-2.1-1.2-2.9c-.3-.8-.6-.7-.9-.7h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.8c.2.2 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5z"/></svg>
+      <span data-i="cta"></span>
+    </a>
+  </div>
+</section>
+
+<footer><span data-i="foot"></span></footer>
+
+<a class="float-wa" data-wa href="#" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.4 2 7.7L.5 31.5l8-2.1c2.2 1.2 4.8 1.9 7.5 1.9 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 28c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.8 1.3 1.3-4.7-.3-.5A12.4 12.4 0 0 1 3.5 16C3.5 9.1 9.1 3.5 16 3.5S28.5 9.1 28.5 16 22.9 28.5 16 28.5zm7-9.4c-.4-.2-2.3-1.1-2.6-1.3-.4-.1-.6-.2-.9.2s-1 1.3-1.2 1.5c-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7s-.9-2.1-1.2-2.9c-.3-.8-.6-.7-.9-.7h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.8c.2.2 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5z"/></svg>
+  <span class="ft" data-i="float"></span>
+</a>
+
+<script>
+/* ====== НАСТРОЙКА: ВСТАВЬ СЮДА НОМЕР WHATSAPP ======
+   Международный формат, без +, пробелов и 0 в начале.
+   Израиль: 9725XXXXXXXX | Узбекистан: 998XXXXXXXXX     */
+const PHONE = "972500000000";   // <-- ЗАМЕНИ НА СВОЙ НОМЕР
+/* =================================================== */
+
+/* lock SVG generator (flowing hair lock in a given color) */
+function lock(c){
+  return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round">
+      <path d="M60 10 C 40 45,80 80,45 122"/>
+      <path d="M60 10 C 75 48,45 85,72 122"/>
+      <path d="M60 10 C 56 45,60 90,58 122"/>
+      <path d="M60 10 C 35 55,70 100,30 122"/>
+      <path d="M60 10 C 85 55,50 100,90 122"/>
+    </g></svg>`;
+}
+
+const COLORS = [
+  {c:"#1c1410", ru:"Чёрный",      uz:"Qora",          zh:"黑色",   hi:"काला",       ar:"أسود"},
+  {c:"#4a2f1c", ru:"Тёмный",      uz:"Qoramtir",      zh:"深色",   hi:"गहरा",       ar:"داكن"},
+  {c:"#7a5230", ru:"Каштановый",  uz:"Kashtan",       zh:"栗色",   hi:"चेस्टनट",    ar:"كستنائي"},
+  {c:"#a8723f", ru:"Русый",       uz:"Och jigarrang", zh:"浅棕色", hi:"हल्का भूरा", ar:"بني فاتح"},
+  {c:"#d9b27a", ru:"Блонд",       uz:"Sariq (oqish)", zh:"金色",   hi:"सुनहरा",     ar:"أشقر"},
+  {c:"#b6b1aa", ru:"Седой",       uz:"Oq soch",       zh:"白发",   hi:"सफ़ेद",      ar:"أبيض"},
+];
+
+const STYLES = [
+  {ru:"Прямые", uz:"To‘g‘ri", zh:"直发", hi:"सीधे", ar:"أملس", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="8" stroke-linecap="round"><path d="M40 12 V128"/><path d="M55 12 V130"/><path d="M70 12 V128"/><path d="M85 12 V130"/></g></svg>`},
+  {ru:"Волнистые", uz:"To‘lqinli", zh:"波浪", hi:"लहरदार", ar:"مموج", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="8" stroke-linecap="round"><path d="M40 12 C30 40,55 55,40 80 C28 105,52 110,42 130"/><path d="M62 12 C52 40,77 55,62 80 C50 105,74 110,64 130"/><path d="M84 12 C74 40,99 55,84 80 C72 105,96 110,86 130"/></g></svg>`},
+  {ru:"Кудрявые", uz:"Jingalak", zh:"卷发", hi:"घुंघराले", ar:"مجعد", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="7" stroke-linecap="round"><path d="M45 16 c-18 6,-18 26,0 24 c14 -2,2 22,-12 18 M62 14 c-18 6,-18 26,0 24 c14 -2,2 22,-12 18 M80 18 c-18 6,-18 26,0 24 c14 -2,2 22,-12 18"/><circle cx="50" cy="100" r="10"/><circle cx="70" cy="112" r="11"/><circle cx="55" cy="124" r="8"/></g></svg>`},
+  {ru:"Длинные", uz:"Uzun", zh:"长发", hi:"लंबे", ar:"طويل", svg:`<svg viewBox="0 0 120 140"><g fill="none" stroke="#5a3b22" stroke-width="8" stroke-linecap="round"><path d="M48 10 C38 50,60 70,46 135"/><path d="M62 10 C58 50,62 80,60 135"/><path d="M76 10 C86 50,64 70,78 135"/></g></svg>`},
+];
+
+const T = {
+  ru:{
+    brand:"СКУПКА ВОЛОС",
+    eyebrow:"Покупаем натуральные волосы",
+    h1:'Продай свои волосы <span class="hl">дорого</span>',
+    sub:"Покупаем натуральные волосы и платим за каждый грамм. Отправь фото в WhatsApp — узнай цену.",
+    price_lbl:"за 1 грамм<br>натуральных волос",
+    cta:"Написать в WhatsApp",
+    note:"Бесплатная оценка • Оплата наличными при получении",
+
+    send_h:"Что отправить в WhatsApp",
+    send_p:"Всего 4 пункта — ответим быстро с ценой",
+    si1b:"Фото волос",si1s:"Сделай чёткое фото волос, которые хочешь продать",
+    si2b:"Цвет волос",si2s:"Напиши цвет: чёрный, русый, блонд, седой и т.д.",
+    si3b:"Город",si3s:"Укажи город — откуда забрать волосы",
+    si4b:"Вес или длина",si4s:"Напиши вес в граммах или длину в сантиметрах",
+    cash:"Оплата — наличными в момент получения",
+
+    col_h:"Какой цвет волос",
+    col_p:"Покупаем любой натуральный цвет — выбери свой и напиши его",
+    sty_h:"Какие волосы подходят",
+    sty_p:"Прямые, волнистые, кудрявые, длинные — покупаем все типы",
+
+    pr_h:"Цена за грамм",
+    pr_p:"Итоговая цена зависит от длины, густоты и состояния",
+    pr_r1:"Стандартное качество",pr_r2:"Длинные и густые",pr_r3:"Премиум — длинные неокрашенные",
+    pr_foot:"Точную цену называем после фото в WhatsApp",
+
+    f_h:"Узнай, сколько стоят твои волосы",
+    f_p:"Одно сообщение — и ты знаешь цену. Без обязательств.",
+    foot:"© Скупка волос — оценка бесплатно, оплата наличными",
+    float:"Написать"
+  },
+  uz:{
+    brand:"SOCH SOTIB OLAMIZ",
+    eyebrow:"Tabiiy sochlarni sotib olamiz",
+    h1:'Sochingizni <span class="hl">qimmatga</span> soting',
+    sub:"Tabiiy sochlarni sotib olamiz va har gramm uchun to‘laymiz. WhatsApp’ga surat yuboring — narxni biling.",
+    price_lbl:"1 gramm<br>tabiiy soch uchun",
+    cta:"WhatsApp’ga yozish",
+    note:"Bepul baholash • To‘lov — olib ketishda naqd pul",
+
+    send_h:"WhatsApp’ga nima yuborish kerak",
+    send_p:"Atigi 4 ta narsa — tez narx aytamiz",
+    si1b:"Soch surati",si1s:"Sotmoqchi bo‘lgan sochning aniq suratini oling",
+    si2b:"Soch rangi",si2s:"Rangini yozing: qora, jigarrang, sariq, oq va h.k.",
+    si3b:"Shahar",si3s:"Shaharni yozing — soch qayerdan olib ketiladi",
+    si4b:"Vazni yoki uzunligi",si4s:"Vaznini grammda yoki uzunligini santimetrda yozing",
+    cash:"To‘lov — olib ketish vaqtida naqd pulda",
+
+    col_h:"Soch rangi qanday",
+    col_p:"Har qanday tabiiy rangni sotib olamiz — o‘zingiznikini tanlang va yozing",
+    sty_h:"Qanday sochlar mos keladi",
+    sty_p:"To‘g‘ri, to‘lqinli, jingalak, uzun — barcha turlarni sotib olamiz",
+
+    pr_h:"Gramm narxi",
+    pr_p:"Yakuniy narx uzunlik, qalinlik va holatga bog‘liq",
+    pr_r1:"Standart sifat",pr_r2:"Uzun va qalin",pr_r3:"Premium — uzun, bo‘yalmagan",
+    pr_foot:"Aniq narxni WhatsApp’dagi surat asosida aytamiz",
+
+    f_h:"Sochingiz qancha turishini biling",
+    f_p:"Bitta xabar — va narxni bilasiz. Majburiyatsiz.",
+    foot:"© Soch sotib olamiz — baholash bepul, to‘lov naqd pulda",
+    float:"Yozish"
+  },
+  zh:{
+    brand:"收购头发",
+    eyebrow:"我们收购天然头发",
+    h1:'<span class="hl">高价</span>出售您的头发',
+    sub:"我们收购天然头发，按克付款。在 WhatsApp 发送照片，即可了解价格。",
+    price_lbl:"每克<br>天然头发",
+    cta:"通过 WhatsApp 联系",
+    note:"免费评估 • 取货时现金付款",
+
+    send_h:"需要在 WhatsApp 发送什么",
+    send_p:"只需 4 项 — 我们会很快报价",
+    si1b:"头发照片",si1s:"拍一张您想出售的头发的清晰照片",
+    si2b:"头发颜色",si2s:"写明颜色：黑色、棕色、金色、白发等",
+    si3b:"城市",si3s:"写明城市 — 从哪里取头发",
+    si4b:"重量或长度",si4s:"写明克数或厘米长度",
+    cash:"付款 — 取货时现金支付",
+
+    col_h:"头发是什么颜色",
+    col_p:"我们收购任何天然颜色 — 选择并写明您的颜色",
+    sty_h:"哪种头发合适",
+    sty_p:"直发、波浪、卷发、长发 — 各种类型都收购",
+
+    pr_h:"每克价格",
+    pr_p:"最终价格取决于长度、密度和状态",
+    pr_r1:"标准品质",pr_r2:"长而浓密",pr_r3:"高端 — 长且未染色",
+    pr_foot:"在 WhatsApp 看到照片后给出准确价格",
+
+    f_h:"了解您的头发值多少钱",
+    f_p:"一条消息 — 即可知道价格。无任何义务。",
+    foot:"© 头发收购 — 免费评估，现金付款",
+    float:"联系"
+  },
+  hi:{
+    brand:"बाल ख़रीद",
+    eyebrow:"हम प्राकृतिक बाल ख़रीदते हैं",
+    h1:'अपने बाल <span class="hl">ऊँचे दाम</span> पर बेचें',
+    sub:"हम प्राकृतिक बाल ख़रीदते हैं और हर ग्राम का भुगतान करते हैं। WhatsApp पर फ़ोटो भेजें — कीमत जानें।",
+    price_lbl:"प्रति 1 ग्राम<br>प्राकृतिक बाल",
+    cta:"WhatsApp पर संदेश भेजें",
+    note:"मुफ़्त मूल्यांकन • पिकअप के समय नकद भुगतान",
+
+    send_h:"WhatsApp पर क्या भेजें",
+    send_p:"सिर्फ़ 4 बातें — हम जल्दी कीमत बताएंगे",
+    si1b:"बालों की फ़ोटो",si1s:"जो बाल बेचना चाहते हैं उनकी साफ़ फ़ोटो लें",
+    si2b:"बालों का रंग",si2s:"रंग लिखें: काला, भूरा, सुनहरा, सफ़ेद आदि",
+    si3b:"शहर",si3s:"शहर बताएं — बाल कहाँ से लेने हैं",
+    si4b:"वज़न या लंबाई",si4s:"ग्राम में वज़न या सेंटीमीटर में लंबाई लिखें",
+    cash:"भुगतान — पिकअप के समय नकद में",
+
+    col_h:"बालों का रंग कैसा है",
+    col_p:"हम कोई भी प्राकृतिक रंग ख़रीदते हैं — अपना चुनें और लिखें",
+    sty_h:"कौन से बाल उपयुक्त हैं",
+    sty_p:"सीधे, लहरदार, घुंघराले, लंबे — सभी प्रकार ख़रीदते हैं",
+
+    pr_h:"प्रति ग्राम कीमत",
+    pr_p:"अंतिम कीमत लंबाई, घनत्व और स्थिति पर निर्भर करती है",
+    pr_r1:"सामान्य गुणवत्ता",pr_r2:"लंबे और घने",pr_r3:"प्रीमियम — लंबे, बिना रंगे",
+    pr_foot:"WhatsApp पर फ़ोटो देखने के बाद सटीक कीमत बताते हैं",
+
+    f_h:"जानें आपके बालों की कीमत कितनी है",
+    f_p:"एक संदेश — और आप कीमत जान जाएंगे। कोई बाध्यता नहीं।",
+    foot:"© बाल ख़रीद — मुफ़्त मूल्यांकन, नकद भुगतान",
+    float:"संदेश भेजें"
+  },
+  ar:{
+    brand:"شراء الشعر",
+    eyebrow:"نشتري الشعر الطبيعي",
+    h1:'بِع شعرك <span class="hl">بسعر مرتفع</span>',
+    sub:"نشتري الشعر الطبيعي وندفع عن كل غرام. أرسل صورة عبر واتساب — واعرف السعر.",
+    price_lbl:"لكل غرام<br>من الشعر الطبيعي",
+    cta:"تواصل عبر واتساب",
+    note:"تقييم مجاني • الدفع نقدًا عند الاستلام",
+
+    send_h:"ماذا ترسل عبر واتساب",
+    send_p:"٤ أشياء فقط — سنرد بالسعر بسرعة",
+    si1b:"صورة الشعر",si1s:"التقط صورة واضحة للشعر الذي تريد بيعه",
+    si2b:"لون الشعر",si2s:"اكتب اللون: أسود، بني، أشقر، أبيض، إلخ",
+    si3b:"المدينة",si3s:"اكتب المدينة — من أين يتم استلام الشعر",
+    si4b:"الوزن أو الطول",si4s:"اكتب الوزن بالغرام أو الطول بالسنتيمتر",
+    cash:"الدفع — نقدًا عند الاستلام",
+
+    col_h:"ما هو لون الشعر",
+    col_p:"نشتري أي لون طبيعي — اختر لونك واكتبه",
+    sty_h:"أي شعر مناسب",
+    sty_p:"أملس، مموج، مجعد، طويل — نشتري كل الأنواع",
+
+    pr_h:"السعر لكل غرام",
+    pr_p:"السعر النهائي يعتمد على الطول والكثافة والحالة",
+    pr_r1:"جودة عادية",pr_r2:"طويل وكثيف",pr_r3:"ممتاز — طويل وغير مصبوغ",
+    pr_foot:"نحدد السعر الدقيق بعد رؤية الصورة عبر واتساب",
+
+    f_h:"اعرف كم يساوي شعرك",
+    f_p:"رسالة واحدة — وتعرف السعر. دون أي التزام.",
+    foot:"© شراء الشعر — تقييم مجاني، الدفع نقدًا",
+    float:"تواصل"
+  }
+};
+
+const WA_MSG = {
+  ru:"Здравствуйте! Хочу продать волосы.\n📷 Фото: (прикреплю)\n🎨 Цвет волос: \n📍 Город (откуда забрать): \n⚖️ Вес/длина: ",
+  uz:"Assalomu alaykum! Sochimni sotmoqchiman.\n📷 Surat: (yuboraman)\n🎨 Soch rangi: \n📍 Shahar (qayerdan olinadi): \n⚖️ Vazni/uzunligi: ",
+  zh:"您好！我想出售头发。\n📷 照片：（将附上）\n🎨 头发颜色：\n📍 城市（取货地点）：\n⚖️ 重量/长度：",
+  hi:"नमस्ते! मैं अपने बाल बेचना चाहता/चाहती हूँ।\n📷 फ़ोटो: (भेजूंगा)\n🎨 बालों का रंग: \n📍 शहर (कहाँ से लें): \n⚖️ वज़न/लंबाई: ",
+  ar:"مرحبًا! أريد بيع شعري.\n📷 الصورة: (سأرفقها)\n🎨 لون الشعر: \n📍 المدينة (مكان الاستلام): \n⚖️ الوزن/الطول: "
+};
+
+function buildGalleries(l){
+  document.getElementById('colors').innerHTML = COLORS.map(c=>
+    `<div class="swatch">${lock(c.c)}<div class="nm">${c[l]}</div></div>`
+  ).join('');
+  document.getElementById('styles').innerHTML = STYLES.map(s=>
+    `<div class="style">${s.svg}<div class="nm">${s[l]}</div></div>`
+  ).join('');
+}
+
+let cur="ru";
+function setLang(l){
+  cur=l;
+  document.documentElement.lang=l;
+  document.documentElement.dir = (l==='ar') ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i]').forEach(el=>{
+    const k=el.getAttribute('data-i');
+    if(T[l][k]!==undefined) el.innerHTML=T[l][k];
+  });
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
+  buildGalleries(l);
+  const link="https://wa.me/"+PHONE+"?text="+encodeURIComponent(WA_MSG[l]);
+  document.querySelectorAll('[data-wa]').forEach(a=>a.href=link);
+}
+setLang('ru');
+</script>
+</body>
+</html>
